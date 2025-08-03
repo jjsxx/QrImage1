@@ -1,1 +1,0 @@
-# QrImage1

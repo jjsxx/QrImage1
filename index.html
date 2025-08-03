@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR 코드와 시간 바</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .qr-code {
+            width: 150px; /* QR 코드의 크기 */
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .time-bar-wrapper {
+            width: 150px; /* QR 코드와 같은 너비 */
+            height: 5px; /* 두께 줄이기 */
+            background-color: #FFFFFF; /* 전체 바의 색상 (하얀색) */
+            overflow: hidden;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .time-bar {
+            height: 100%;
+            width: 100%;
+            background-color: #FFFFFF; /* 전체 바의 색상 (하얀색) */
+            position: absolute;
+        }
+
+        /* 파란색 슬라이딩 영역 */
+        .time-bar-inner {
+            height: 100%;
+            background-color: #1E3A8A; /* 시간이 줄어들 때 색상 (파란색) */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 2s cubic-bezier(0.25, 0.8, 0.25, 1); /* 부드러운 애니메이션 속도와 타이밍 함수 */
+        }
+
+        .time-text {
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            bottom: -20px; /* 시간 바 아래쪽으로 위치 */
+            color: #1E3A8A; /* 파란색 */
+        }
+
+        .time-text span.time-label {
+            color: #808080; /* "남은 시간"은 회색 */
+        }
+
+        .time-text span.time-value {
+            color: #1E3A8A; /* 남은 시간 초는 파란색 */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- QR 코드 이미지 -->
+    <img src="QrImage1.jpg" alt="QR 코드" class="qr-code">
+
+    <!-- 시간 바 영역 -->
+    <div class="time-bar-wrapper">
+        <div class="time-bar">
+            <div class="time-bar-inner" id="time-bar-inner"></div>
+        </div>
+    </div>
+
+    <!-- 남은 시간 텍스트 -->
+    <div class="time-text" id="time-text">
+        <span class="time-label">남은 시간 </span>
+        <span class="time-value" id="time-value">30초</span>
+    </div>
+</div>
+
+<script>
+    const totalTime = 30; // 총 시간 (초)
+    let remainingTime = totalTime; // 남은 시간 (초)
+
+    const timeBarInner = document.getElementById("time-bar-inner");
+    const timeValue = document.getElementById("time-value");
+
+    const interval = setInterval(() => {
+        remainingTime--;
+        const percentage = (remainingTime / totalTime) * 100;
+
+        // 시간 바 내부의 파란색 부분 너비를 시간에 맞게 줄여줍니다.
+        timeBarInner.style.width = percentage + "%"; 
+
+        // 남은 시간을 "30초" 형태로 표시
+        timeValue.textContent = `${remainingTime}초`;
+
+        // 시간이 다 되면 멈추고 팝업 띄우기
+        if (remainingTime <= 0) {
+            clearInterval(interval);
+            timeValue.textContent = "시간 종료";
+            alert("인증 세션이 만료되었습니다.");  // 팝업 창 표시
+        }
+    }, 1000); // 1초마다 실행
+</script>
+
+</body>
+</html>
