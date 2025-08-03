@@ -28,7 +28,7 @@
 
         .time-bar-wrapper {
             width: 150px; /* QR 코드와 같은 너비 */
-            height: 5px; /* 두께 줄이기 */
+            height: 10px; /* 두께 줄이기 */
             background-color: #FFFFFF; /* 전체 바의 색상 (하얀색) */
             overflow: hidden;
             position: relative;
@@ -54,8 +54,12 @@
 
         .time-text {
             font-size: 14px;
-            margin-top: 10px;
+            margin-top: 5px;
             font-weight: bold;
+            position: absolute;
+            left: 0;
+            bottom: -20px; /* 시간 바 아래쪽으로 위치 */
+            color: #1E3A8A; /* 파란색 */
         }
 
         .time-text span.time-label {
@@ -105,11 +109,7 @@
         // 남은 시간을 "30초" 형태로 표시
         timeValue.textContent = `${remainingTime}초`;
 
-        // 시간이 다 되면 멈추기
-        if (remainingTime <= 0) {
-            clearInterval(interval);
-            timeValue.textContent = "시간 종료";
-        }
+        // 시간이 다 되면 멈추고 팝업 띄우기
     }, 1000); // 1초마다 실행
 </script>
 
