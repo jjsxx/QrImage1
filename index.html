@@ -5,22 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR 코드와 시간 바</title>
     <style>
-        /* 기본적인 여백 제거 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%; /* 전체 화면 크기를 채우도록 설정 */
-        }
-
         body {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
             background-color: #f7f7f7;
         }
 
@@ -63,12 +54,8 @@
 
         .time-text {
             font-size: 14px;
-            margin-top: 5px;
+            margin-top: 10px;
             font-weight: bold;
-            position: absolute;
-            left: 0;
-            bottom: -20px; /* 시간 바 아래쪽으로 위치 */
-            color: #1E3A8A; /* 파란색 */
         }
 
         .time-text span.time-label {
@@ -85,7 +72,7 @@
 
 <div class="container">
     <!-- QR 코드 이미지 -->
-    <img src="QrImage1.jpg" alt="QR 코드" class="qr-code">
+    <img src="https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/assets/media/common/qr-placeholder.png" alt="QR 코드" class="qr-code">
 
     <!-- 시간 바 영역 -->
     <div class="time-bar-wrapper">
@@ -101,6 +88,29 @@
     </div>
 </div>
 
+<script>
+    const totalTime = 30; // 총 시간 (초)
+    let remainingTime = totalTime; // 남은 시간 (초)
+
+    const timeBarInner = document.getElementById("time-bar-inner");
+    const timeValue = document.getElementById("time-value");
+
+    const interval = setInterval(() => {
+        remainingTime--;
+        const percentage = (remainingTime / totalTime) * 100;
+
+        // 시간 바 내부의 파란색 부분 너비를 시간에 맞게 줄여줍니다.
+        timeBarInner.style.width = percentage + "%"; 
+
+        // 남은 시간을 "30초" 형태로 표시
+        timeValue.textContent = `${remainingTime}초`;
+
+        // 시간이 다 되면 멈추기
+        if (remainingTime <= 0) {
+            clearInterval(interval);
+            timeValue.textContent = "시간 종료";
+        }
+    }, 1000); // 1초마다 실행
 </script>
 
 </body>
