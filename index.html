@@ -13,61 +13,70 @@
             height: 100vh;
             margin: 0;
             background-color: #f7f7f7;
+            overflow: hidden; /* 화면을 벗어나는 부분은 숨깁니다 */
         }
 
         .container {
             text-align: center;
             position: relative;
+            width: 100%;   /* 화면 너비에 맞게 */
+            height: 100%;  /* 화면 높이에 맞게 */
+            padding: 10px; /* 여백을 추가하여 모바일 화면에 맞게 */
+            box-sizing: border-box; /* padding이 크기를 변경하지 않도록 */
         }
 
         .qr-code {
-            width: 150px; /* QR 코드의 크기 */
-            height: 150px;
+            width: 30vw;  /* 화면 너비의 30%로 크기 설정 (모바일에서 적당한 크기) */
+            height: auto; /* 종횡비 유지 */
             margin-bottom: 10px;
         }
 
         .time-bar-wrapper {
-            width: 150px; /* QR 코드와 같은 너비 */
-            height: 4px; /* 두께 줄이기 */
-            background-color: #FFFFFF; /* 전체 바의 색상 (하얀색) */
+            width: 70%; /* 시간 바의 너비를 화면의 70%로 설정 */
+            height: 4px;
+            background-color: #FFFFFF;
             overflow: hidden;
             position: relative;
             margin-top: 10px;
+            margin-bottom: 10px; /* 공간 확보 */
+            margin-left: auto;
+            margin-right: auto; /* 중앙 정렬 */
         }
 
         .time-bar {
             height: 100%;
             width: 100%;
-            background-color: #FFFFFF; /* 전체 바의 색상 (하얀색) */
+            background-color: #FFFFFF;
             position: absolute;
         }
 
-        /* 파란색 슬라이딩 영역 */
         .time-bar-inner {
             height: 100%;
-            background-color: #1E3A8A; /* 시간이 줄어들 때 색상 (파란색) */
+            background-color: #1E3A8A;
             position: absolute;
             top: 0;
             left: 0;
-            transition: width 2s cubic-bezier(0.25, 0.8, 0.25, 1); /* 부드러운 애니메이션 속도와 타이밍 함수 */
+            transition: width 2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .time-text {
-            font-size: 14px;
+            font-size: 16px;
             margin-top: 5px;
             font-weight: bold;
             position: absolute;
             left: 0;
-            bottom: -20px; /* 시간 바 아래쪽으로 위치 */
-            color: #1E3A8A; /* 파란색 */
+            bottom: -25px; /* 시간 바 아래쪽으로 위치 */
+            color: #1E3A8A;
+            width: 100%; /* 텍스트가 중앙에 배치되도록 */
+            text-align: center;
         }
 
         .time-text span.time-label {
-            color: #808080; /* "남은 시간"은 회색 */
+            color: #808080;
         }
 
         .time-text span.time-value {
-            color: #1E3A8A; /* 남은 시간 초는 파란색 */
+            color: #1E3A8A;
         }
 
     </style>
